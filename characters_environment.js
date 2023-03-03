@@ -1,9 +1,7 @@
+noseX="";
+noseY="";
+GameStatus="";
 
-/*=================================
-=            Variables            =
-=================================*/
-
-/* main character variabes */
 var mario, bricks,clouds,mountains,enemyMushrooms,pipes,platforms,coins;
 
 /* Control variabes */
@@ -67,7 +65,7 @@ function game(){
     fill(255, 255, 255);
     textSize(40);
     textAlign(CENTER);
-    text("Press Any Arrow Keys to Start and Play ", gameConfig.screenX/2, gameConfig.screenY/2);
+    text("Press play to Start and Play ", gameConfig.screenX/2, gameConfig.screenY/2);
     textSize(40);
 
     stroke(255);
@@ -115,9 +113,10 @@ function game(){
 
 // change game status if any key is pressed
 function changeGameStatud(character){
-  if((keyDown(control.up) ||keyDown(control.left)||keyDown(control.right) )&& gameConfig.status==="start") {
+  if(	GameStatus="start" && noseX!="" && gameConfig.status==="start"){
     world_start.play();
     initializeCharacterStatus(mario);
+    
     gameConfig.status= "play";
   }
   if(gameConfig.status==="gameover" && keyDown(control.revive)) {
@@ -279,19 +278,19 @@ function autoControl(character){
 function manualControl(character){
   
   if(character.live){
-    if(keyDown(control.left)){
+    if(noseX<300){
       character.velocity.x-=gameConfig.moveSpeed;
       character.changeAnimation('move');
       character.mirrorX(-1);
     }
 
-    if(keyDown(control.right)){
+    if(noseX>300){
       character.velocity.x+=gameConfig.moveSpeed;
       character.changeAnimation('move');
       character.mirrorX(1);
     }
 
-    if(!keyDown(control.left)&&!keyDown(control.right)&&!keyDown(control.up)){ 
+    if(noseX<300 && noseX>300 && noseY<150){ 
       character.changeAnimation('stand');
     }
   }
@@ -300,7 +299,7 @@ function manualControl(character){
 
 /* Movements of character */
 function jumping(character){
-	if( (keyWentDown(control.up)&&character.live) || (touchIsDown&&character.live) ){
+	if( noseY<150 &&character.live) || (touchIsDown&&character.live) ){
 		character.velocity.y+=gameConfig.jump;
 	}
 }
@@ -611,5 +610,3 @@ function upSide(obj){ return obj.position.y-(obj.height/2);}
 function downSide(obj){ return obj.position.y+(obj.height/2);}
 
 /*=====  End of For Debugging  ======*/
-
-
